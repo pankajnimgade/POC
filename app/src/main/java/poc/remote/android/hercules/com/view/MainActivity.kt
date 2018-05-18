@@ -15,6 +15,7 @@ import poc.remote.android.hercules.com.model.bluetooth.ErrorType
 import poc.remote.android.hercules.com.presenter.IPresenter
 import poc.remote.android.hercules.com.presenter.Presenter
 import poc.remote.android.hercules.com.view.dailog.AlertFragment
+import poc.remote.android.hercules.com.view.dailog.BtDeviceFragment
 
 class MainActivity : AppCompatActivity(), IMainActivity {
 
@@ -35,19 +36,22 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     fun onClickButton(view: View) {
         Log.d(TAG, "onClickButton: ")
-        val alertFragment = AlertFragment.newInstance("text1", "text2")
-        alertFragment.show(fragmentManager, "alertFragment")
+
 
         presenter.discoverBluetoothDevice()
     }
 
     override fun onPairedDevicesUi(@NotNull bluetoothDevices: MutableList<BluetoothDevice>?) {
         bluetoothDevices?.forEach { println("BlueTooth device: ${it.name} ${it.bluetoothClass}") }
+        var btDeviceFragment: BtDeviceFragment=   BtDeviceFragment.newInstance(bluetoothDevices)
+        btDeviceFragment.show(supportFragmentManager, "BtDeviceFragment")
         Log.d(TAG, "onPairedDevicesUi: ")
     }
 
     override fun onErrorUi(errorType: ErrorType?) {
         Log.d(TAG, "onErrorUi: $errorType")
+        val alertFragment = AlertFragment.newInstance(errorType.toString(), "text2")
+        alertFragment.show(fragmentManager, "alertFragment")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

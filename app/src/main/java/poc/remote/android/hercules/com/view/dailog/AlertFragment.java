@@ -67,6 +67,7 @@ public class AlertFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alert, container, false);
         alertMessageTextView = (view).findViewById(R.id.AlertFragment_alert_message_textView);
+        alertMessageTextView.setText(""+mParam1);
         okButton = (view).findViewById(R.id.AlertFragment_ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
