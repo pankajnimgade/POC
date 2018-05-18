@@ -1,5 +1,6 @@
 package poc.remote.android.hercules.com.view
 
+import android.bluetooth.BluetoothDevice
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.annotations.NotNull
 import poc.remote.android.hercules.com.R
 import poc.remote.android.hercules.com.model.bluetooth.ErrorType
 import poc.remote.android.hercules.com.presenter.IPresenter
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         alertFragment.show(fragmentManager, "alertFragment")
 
         presenter.discoverBluetoothDevice()
+    }
+
+    override fun onPairedDevicesUi(@NotNull bluetoothDevices: MutableList<BluetoothDevice>?) {
+        bluetoothDevices?.forEach { println("BlueTooth device: ${it.name} ${it.bluetoothClass}") }
+        Log.d(TAG, "onPairedDevicesUi: ")
     }
 
     override fun onErrorUi(errorType: ErrorType?) {

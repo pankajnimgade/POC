@@ -1,5 +1,9 @@
 package poc.remote.android.hercules.com.presenter;
 
+import android.bluetooth.BluetoothDevice;
+
+import java.util.List;
+
 import poc.remote.android.hercules.com.model.IModel;
 import poc.remote.android.hercules.com.model.Model;
 import poc.remote.android.hercules.com.model.bluetooth.ErrorType;
@@ -24,5 +28,10 @@ public class Presenter implements IPresenter {
     @Override
     public void onError(ErrorType errorType) {
         view.onErrorUi(errorType);
+    }
+
+    @Override
+    public void pairedDevicesPresenter(List<BluetoothDevice> bluetoothDevices) {
+        view.onPairedDevicesUi(bluetoothDevices);
     }
 }
