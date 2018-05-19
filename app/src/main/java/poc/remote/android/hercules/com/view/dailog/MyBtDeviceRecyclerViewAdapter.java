@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,8 +39,7 @@ public class MyBtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<MyBtDevi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = bluetoothDevices.get(position);
-        holder.mIdView.setText(bluetoothDevices.get(position).getName());
-        holder.mContentView.setText(bluetoothDevices.get(position).getBondState());
+        holder.mBluetoothDeviceTextView.setText("" + holder.mItem.getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,20 +60,18 @@ public class MyBtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<MyBtDevi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mBluetoothDeviceTextView;
         public BluetoothDevice mItem;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mView = (LinearLayout) view.findViewById(R.id.root_LinearLayout);
+            mBluetoothDeviceTextView = (TextView) view.findViewById(R.id.fragment_btdevice_item_number_textView);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mItem.getName() + "'";
         }
     }
 }

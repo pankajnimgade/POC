@@ -17,7 +17,7 @@ import poc.remote.android.hercules.com.presenter.Presenter
 import poc.remote.android.hercules.com.view.dailog.AlertFragment
 import poc.remote.android.hercules.com.view.dailog.BtDeviceFragment
 
-class MainActivity : AppCompatActivity(), IMainActivity {
+class MainActivity : AppCompatActivity(), IMainActivity, BtDeviceFragment.OnListFragmentInteractionListener {
 
 
     private val TAG = "MainActivity"
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     override fun onPairedDevicesUi(@NotNull bluetoothDevices: MutableList<BluetoothDevice>?) {
         bluetoothDevices?.forEach { println("BlueTooth device: ${it.name} ${it.bluetoothClass}") }
-        var btDeviceFragment: BtDeviceFragment=   BtDeviceFragment.newInstance(bluetoothDevices)
+        var btDeviceFragment: BtDeviceFragment = BtDeviceFragment.newInstance(bluetoothDevices)
         btDeviceFragment.show(supportFragmentManager, "BtDeviceFragment")
         Log.d(TAG, "onPairedDevicesUi: ")
     }
@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         Log.d(TAG, "onErrorUi: $errorType")
         val alertFragment = AlertFragment.newInstance(errorType.toString(), "text2")
         alertFragment.show(fragmentManager, "alertFragment")
+    }
+
+    override fun onListFragmentInteraction(item: BluetoothDevice?) {
+        Log.d(TAG, "onListFragmentInteraction: ${item?.name}")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,8 +13,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import poc.remote.android.hercules.com.R;
-import poc.remote.android.hercules.com.view.dailog.dummy.DummyContent;
-import poc.remote.android.hercules.com.view.dailog.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
@@ -64,17 +61,12 @@ public class BtDeviceFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_btdevice_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyBtDeviceRecyclerViewAdapter(bluetoothDeviceList, mListener));
-        }
+
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.BtDeviceFragment_list_RecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(new MyBtDeviceRecyclerViewAdapter(bluetoothDeviceList, mListener));
+
         return view;
     }
 
